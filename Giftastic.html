@@ -4,90 +4,29 @@
 	<title>
 		Giftastic!
 	</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="./assets/app.js"></script>
 </head>
 <body>
 	<header id="header">
 		<h1>Buttons</h1>
-		<div id="buttonContainer"></div>
+		<div id="buttonContainer">
+			<button class="animalButton">cat</button>
+			<button class="animalButton">dog</button>
+			<button class="animalButton">hamster</button>
+
+		</div>
 	</header>
 	<div>
 		<div id="searchBar">
 			<h3>Search Animals Here</h3>
 			<input type="text" name="Animal" id="searchBox">
-			<button id="submitButton">Submit</button>
+			<button id="submitButton">Add Animal</button>
 		</div>
 		<div id="mainContainer">
 			<h3>Animal Images</h3>
 			<div id="imageContatiner"></div>
 		</div>
 	</div>
-
-
-
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-	<script type="text/javascript">
-
-	$( document ).ready(function()
-	{
-
-		let animalInput = $("#searchBox").val().trim();
-		console.log("search: ", animalInput);
-
-		$("#submitButton").on("click", function buttonAdder(input)
-		{
-			let animalInput = $("#searchBox").val().trim();
-			console.log("search: ", animalInput);
-			function clear(input)
-			{
-				animalInput.toLowerCase();
-				animalInput.replace(" ", "+");
-			}
-			clear (animalInput);
-			var btn = $("<button>");
-			btn.addClass("animalButton");
-			btn.attr("data-search", animalInput);
-			btn.text(animalInput);
-			$('#buttonContainer').append(btn);
-		});
-
-		$(".animalButton").on("click", function()
-		{
-			let searchInput = $("data-search").val().trim();
-
-			console.log("data-search: ", searchInput);
-
-			let APIkey = "sMwc8ewdP9gAt6Mm886EZEWcJ56AYFTZ";
-			let limit = 20;
-			let queryURL = "https://api.giphy.com/v1/gifs/search?q="+searchInput+"&api_key="+APIkey+"&limit="+limit;
-
-			console.log('queryURL: ',queryURL);
-			
-			$.ajax({url: queryURL, method: "GET"}).done(function(response) 
-			{	
-				for (var i = 0; i < response.data.length; i++)
-				{
-					console.log('response: ',response);
-					let imageURL = response.data[i].images.fixed_height.url;
-					let gifDiv = $("<div class='item'>");
-					console.log('image URL: ',imageURL);
-					let animalImage = $("<img>");
-					animalImage.attr("src", imageURL);
-		        	animalImage.attr("alt", "animal image");
-		        	animalButton.addClass("animalButton");
-		        	//$('.gif').pause();
-		        	gifDiv.prepend(animalImage);
-		        	$('#imageContatiner').prepend(gifDiv);
-	        	}
-			});
-		});
-	})
-
-	
-
-
-
-
-	</script>
 </body>
 </html>
